@@ -10,7 +10,7 @@ Reference: [https://docs.python-guide.org/starting/installation/](https://docs.p
 python3 -m venv envname
 
 #### 2.2 Activate virtual environment
-```
+```bash
 source envname/bin/activate
 ```
 

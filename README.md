@@ -6,10 +6,11 @@
 Install ```python-3.8.10``` and ```python-pip```. Follow the steps from the below reference document based on your Operating System.
 Reference: [https://docs.python-guide.org/starting/installation/](https://docs.python-guide.org/starting/installation/)
 
-#### 2. Setup virtual environment
+#### 2.1 Setup virtual environment
 python3 -m venv envname
 
-# Activate virtual environment
+#### 2.2 Activate virtual environment
+```
 source envname/bin/activate
 ```
 

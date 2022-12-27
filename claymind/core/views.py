@@ -9,6 +9,7 @@ from rest_framework.response import Response
 
 def index(request):
     """ Custom view for the homepage
+        to show up the table
     """
     person_data = PersonData.objects.all().order_by('order_value')
 

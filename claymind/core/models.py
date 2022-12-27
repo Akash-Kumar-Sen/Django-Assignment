@@ -8,6 +8,8 @@ class ContactChoices(models.TextChoices):
 
 
 class PersonData(UUIDTimeStampedModel):
+    """ Model structure for storing the data
+    """
     name = models.CharField(max_length=100, null=True)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+
+  <body>
+    <br>
+    <br>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Order</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in person_data %}
+          <tr class="table-row">
+            <th scope="row" class="item-id">{{ item.id}}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.contact }}</td>
+            <td class="td-1">
+                <a class="btn btn-primary up-btn" href="#">Move Up</a>
+                <a class="btn btn-danger down-btn" href="#">Move Down</a>
+            </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function(){
+        firstButton = $("tr td a:first");
+        lastButton =  $("tr td a:last")
+        firstButton.remove()
+        lastButton.remove()
+
+        $('.up-btn').on('click', function(){
+            currTrObject = $(this).parent().parent()
+            currIdContainer = currTrObject.find('.item-id')
+            currItemId = currIdContainer.text()
+            console.log(currItemId)
+
+            prevTrObject = $(this).parent().parent().prev()
+            prevIdContainer = prevTrObject.find('.item-id')
+            prevItemId = prevIdContainer.text()
+            console.log(prevItemId)
+
+            $.post("order_database/",
+            {
+                first_object_id: currItemId,
+                second_object_id: prevItemId,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            });
+            window.location.reload(true)
+        })
+
+        $('.down-btn').on('click', function(){
+            currTrObject = $(this).parent().parent()
+            currIdContainer = currTrObject.find('.item-id')
+            currItemId = currIdContainer.text()
+            console.log(currItemId)
+
+            nextTrObject = $(this).parent().parent().next()
+            nextIdContainer = nextTrObject.find('.item-id')
+            nextItemId =nextIdContainer.text()
+            console.log(nextItemId)
+
+            $.post("order_database/",
+            {
+                first_object_id: currItemId,
+                second_object_id: nextItemId,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            });
+            window.location.reload(true)
+        })
+    });
+  </script>
+</html>
